@@ -173,6 +173,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
               </th>
               <th
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                style={{ width: '80px' }}
                 onClick={() => handleSort('age')}
               >
                 <div className="flex items-center space-x-1">
@@ -182,6 +183,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
               </th>
               <th
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                style={{ width: '80px' }}
                 onClick={() => handleSort('gender')}
               >
                 <div className="flex items-center space-x-1">
@@ -191,6 +193,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
               </th>
               <th
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                style={{ width: '120px' }}
                 onClick={() => handleSort('eventType')}
               >
                 <div className="flex items-center space-x-1">
@@ -198,7 +201,10 @@ const ListView = ({ events, timezone, onEventClick }) => {
                   {getSortIcon('eventType')}
                 </div>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th 
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                style={{ width: '80px' }}
+              >
                 <div className="flex items-center space-x-1">
                   <span>Website</span>
                 </div>
