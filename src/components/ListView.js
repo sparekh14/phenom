@@ -3,6 +3,7 @@ import { format, parseISO } from 'date-fns';
 
 import { downloadMultipleEventsICS } from '../utils/export';
 import { getColorBySport } from '../utils/colors';
+import { isValidExternalWebsite, getWebsiteDisplayText, getWebsiteDisplayClass } from '../utils/websiteValidation';
 
 const ListView = ({ events, timezone, onEventClick }) => {
   const [sortField, setSortField] = useState('startDateTime');
@@ -257,18 +258,20 @@ const ListView = ({ events, timezone, onEventClick }) => {
                 </td>
                 {/* Website */}
                 <td className="px-6 py-4 whitespace-nowrap">
-                  {event.website ? (
+                  {isValidExternalWebsite(event.website) ? (
                     <a 
                       href={event.website} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 underline text-sm"
+                      className={getWebsiteDisplayClass(event.website)}
                       onClick={(e) => e.stopPropagation()}
                     >
-                      Visit
+                      {getWebsiteDisplayText(event.website)}
                     </a>
                   ) : (
-                    <div className="text-sm text-gray-400 italic">-</div>
+                    <div className={getWebsiteDisplayClass(event.website)}>
+                      {getWebsiteDisplayText(event.website)}
+                    </div>
                   )}
                 </td>
               </tr>

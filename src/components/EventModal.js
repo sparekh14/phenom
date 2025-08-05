@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { formatDateDisplay } from '../utils/timezone';
 import { generateGoogleCalendarUrl, downloadICSFile } from '../utils/export';
+import { isValidExternalWebsite, getWebsiteDisplayText, getWebsiteDisplayClass } from '../utils/websiteValidation';
 
 const EventModal = ({ event, timezone, onClose }) => {
   // Handle escape key
@@ -152,7 +153,7 @@ const EventModal = ({ event, timezone, onClose }) => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9" />
             </svg>
             <span className="text-gray-600 w-20">Website:</span>
-            {event.website ? (
+            {isValidExternalWebsite(event.website) ? (
               <a 
                 href={event.website} 
                 target="_blank" 
@@ -162,7 +163,7 @@ const EventModal = ({ event, timezone, onClose }) => {
                 Visit Event Page
               </a>
             ) : (
-              <span className="text-gray-500 italic">Not available</span>
+              <span className="text-gray-500 italic">{getWebsiteDisplayText(event.website)}</span>
             )}
           </div>
         </div>

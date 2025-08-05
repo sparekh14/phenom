@@ -87,7 +87,7 @@ class HybridTournamentSystem:
                 'age': 'U10-U19',
                 'gender': 'Both',
                 'event_type': 'Tournament',
-                'website': 'https://www.gotsoccer.com/tournaments'
+                'website': 'N/A'
             },
             # Lacrosse Tournaments
             {
@@ -110,7 +110,7 @@ class HybridTournamentSystem:
                 'age': 'High School',
                 'gender': 'Both',
                 'event_type': 'Showcase',
-                'website': 'https://www.insidelacrosse.com/recruiting'
+                'website': 'N/A'
             },
             # Regional Tournaments
             {
@@ -122,7 +122,7 @@ class HybridTournamentSystem:
                 'age': 'U13-U19',
                 'gender': 'Both',
                 'event_type': 'Championship',
-                'website': 'https://www.msysa.org/state-cup'
+                'website': 'N/A'
             },
             {
                 'name': 'Virginia State Cup',
@@ -133,7 +133,7 @@ class HybridTournamentSystem:
                 'age': 'U13-U19',
                 'gender': 'Both',
                 'event_type': 'Championship',
-                'website': 'https://www.vysa.com/state-cup'
+                'website': 'N/A'
             },
             {
                 'name': 'Pennsylvania State Cup',
@@ -144,7 +144,7 @@ class HybridTournamentSystem:
                 'age': 'U13-U19',
                 'gender': 'Both',
                 'event_type': 'Championship',
-                'website': 'https://www.epysa.org/state-cup'
+                'website': 'N/A'
             }
         ]
     
@@ -377,6 +377,7 @@ class HybridTournamentSystem:
             - For gender, use "Both" if the event is open to both boys and girls
             - Be specific with age groups when possible
             - Only provide real, factual information
+            - For website, only provide actual working URLs, otherwise use "N/A"
             """
             
             response = self.gemini.generate_content(prompt)
