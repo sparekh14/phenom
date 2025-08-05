@@ -12,6 +12,7 @@ This script:
 import os
 import json
 import logging
+import time
 import google.generativeai as genai
 from datetime import datetime, timedelta
 from typing import List, Dict, Optional
@@ -105,6 +106,10 @@ class GeminiEventDiscoveryBot:
             
             logger.info(f"📊 Found {len(events_to_enhance)} events with missing data")
             
+            # Process all events (or limit for cost control)
+            # events_to_enhance = events_to_enhance[:20]  # Uncomment to limit for cost control
+            logger.info(f"🔄 Processing {len(events_to_enhance)} events with missing data")
+            
             # Enhance each event
             for item in events_to_enhance:
                 event = item['event']
@@ -116,6 +121,9 @@ class GeminiEventDiscoveryBot:
                 if enhanced_data:
                     self._update_event_data(event['id'], enhanced_data)
                     self.stats['events_enhanced'] += 1
+                
+                # Add delay to avoid rate limits
+                time.sleep(1)
                 
         except Exception as e:
             logger.error(f"❌ Error enhancing existing events: {e}")
@@ -154,8 +162,14 @@ class GeminiEventDiscoveryBot:
             response = self.gemini.generate_content(prompt)
             result = response.text.strip()
             
-            # Parse JSON response
+            # Parse JSON response (handle markdown formatting)
             try:
+                # Remove markdown code blocks if present
+                if result.startswith('```json'):
+                    result = result.replace('```json', '').replace('```', '').strip()
+                elif result.startswith('```'):
+                    result = result.replace('```', '').strip()
+                
                 enhanced_data = json.loads(result)
                 logger.info(f"   ✅ Enhanced data: {enhanced_data}")
                 return enhanced_data
@@ -174,13 +188,13 @@ class GeminiEventDiscoveryBot:
         
         try:
             prompt = """
-            You are an expert at finding youth sports events. Search for upcoming youth sports events in the United States.
+            You are an expert at youth sports events. Based on your knowledge, suggest some upcoming youth sports events that are likely to happen.
             
-            Find events that match these criteria:
+            Create events that match these criteria:
             - Youth sports events (soccer, basketball, football, baseball, tennis, swimming, volleyball, hockey, lacrosse)
-            - Events happening in the next 6 months
-            - Tournaments, leagues, camps, clinics, showcases
-            - Events with specific dates and locations
+            - Events that typically happen in the next 6 months
+            - Common tournaments, leagues, camps, clinics, showcases
+            - Realistic dates and locations
             
             Return the events in this exact JSON format:
             [
@@ -193,16 +207,16 @@ class GeminiEventDiscoveryBot:
                     "age": "Age Group (e.g., U12, U14, High School)",
                     "gender": "Boys, Girls, or Both",
                     "event_type": "Tournament, League, Camp, Clinic, Showcase",
-                    "website": "Event website URL if available"
+                    "website": "N/A"
                 }
             ]
             
             Rules:
-            - Only include real, upcoming events
+            - Create realistic events based on common patterns
             - Use "Both" for gender if event is open to both
-            - Be specific with dates and locations
-            - Include 5-10 high-quality events
-            - Ensure all required fields are filled
+            - Use realistic dates in the next 6 months
+            - Include 3-5 high-quality events
+            - Set website to "N/A" since we can't verify URLs
             """
             
             response = self.gemini.generate_content(prompt)
