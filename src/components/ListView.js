@@ -252,7 +252,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
                   <div className="text-sm text-gray-900">{event.sport}</div>
                 </td>
                 {/* Age */}
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 whitespace-normal break-words">
                   <div className={getDisplayClass(event.age)}>{getAgeDisplay(event.age)}</div>
                 </td>
                 {/* Gender */}
