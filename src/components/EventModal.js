@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { formatDateDisplay } from '../utils/timezone';
 import { generateGoogleCalendarUrl, downloadICSFile } from '../utils/export';
-import { isValidExternalWebsite, getWebsiteDisplayText, getWebsiteDisplayClass } from '../utils/websiteValidation';
+import { isValidExternalWebsite, getWebsiteDisplayText } from '../utils/websiteValidation';
 import { getLocationDisplay, getAgeDisplay, getGenderDisplay, getEventTypeDisplay } from '../utils/displayHelpers';
 
 const EventModal = ({ event, timezone, onClose }) => {
