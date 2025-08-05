@@ -32,22 +32,22 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         
-    - name: Run enhanced event discovery with Gemini
-      env:
-        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-        SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        TEST_MODE: ${{ github.event.inputs.test_mode || false }}
-      run: |
-        cd scripts
-        python gemini_event_discovery.py
+                    - name: Run hybrid tournament system
+                  env:
+                    SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+                    SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+                    GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+                    TEST_MODE: ${{ github.event.inputs.test_mode || false }}
+                  run: |
+                    cd scripts
+                    python hybrid_tournament_system.py
         
-    - name: Upload logs
-      uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: event-discovery-logs
-        path: scripts/gemini_event_discovery.log
+                    - name: Upload logs
+                  uses: actions/upload-artifact@v4
+                  if: always()
+                  with:
+                    name: event-discovery-logs
+                    path: scripts/hybrid_system.log
         
     - name: Notify on failure
       if: failure()
