@@ -123,7 +123,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
 
       {/* Table */}
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
+        <table className="min-w-full divide-y divide-gray-200" style={{ minWidth: '1400px' }}>
           <thead className="bg-gray-50">
             <tr>
               <th
