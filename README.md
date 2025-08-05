@@ -20,35 +20,18 @@ A comprehensive React-based calendar application for managing youth sports event
 - **Frontend**: React 18, React Router, Tailwind CSS
 - **Date Handling**: date-fns, date-fns-tz
 - **Export**: ics library for calendar file generation
-- **Data Processing**: Python with pandas for Excel conversion
 
 ## Setup Instructions
 
 ### 1. Install Dependencies
 
-First, install the required Python packages for data conversion:
-
-```bash
-pip install -r requirements.txt
-```
-
-Then install Node.js dependencies:
+Install Node.js dependencies:
 
 ```bash
 npm install
 ```
 
-### 2. Convert Excel Data
-
-Convert your Excel file to JSON format:
-
-```bash
-npm run convert-data
-```
-
-This will run the Python script to convert `Youth Sports Events.xlsx` to `src/data/events.json`.
-
-### 3. Start Development Server
+### 2. Start Development Server
 
 ```bash
 npm start
@@ -176,27 +159,14 @@ npm run build
 # The build folder contains static files ready for deployment
 ```
 
-## Data Conversion Script
+## Data Management
 
-The `convert_excel_to_json.py` script automatically:
+Events are stored and managed through Supabase. The application fetches events in real-time and supports:
 
-- Reads Excel files with any column structure
-- Maps common column names to required fields
-- Generates unique IDs for each event
-- Handles date/time parsing
-- Creates properly formatted JSON output
-
-### Customizing Column Mapping
-
-Edit the `convert_excel_to_json.py` script to customize how Excel columns map to JSON fields:
-
-```python
-required_fields = {
-    "name": event.get("name", event.get("event_name", f"Event {index + 1}")),
-    "sport": event.get("sport", "Unknown"),
-    # Add your custom mappings here
-}
-```
+- Real-time event updates
+- Advanced filtering and search
+- Export functionality
+- Timezone conversion
 
 ## Browser Support
 

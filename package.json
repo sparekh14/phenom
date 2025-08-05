@@ -21,8 +21,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "convert-data": "python3 convert_excel_to_json.py"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
