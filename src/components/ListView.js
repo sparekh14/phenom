@@ -148,7 +148,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
               </th>
               <th
                 className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                style={{ width: '20%' }}
+                style={{ width: '24%' }}
                 onClick={() => handleSort('name')}
               >
                 <div className="flex items-center space-x-1">
@@ -158,7 +158,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
               </th>
               <th
                 className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                style={{ width: '12%' }}
+                style={{ width: '14%' }}
                 onClick={() => handleSort('location')}
               >
                 <div className="flex items-center space-x-1">
@@ -178,7 +178,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
               </th>
               <th
                 className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                style={{ width: '8%' }}
+                style={{ width: '6%' }}
                 onClick={() => handleSort('age')}
               >
                 <div className="flex items-center space-x-1">
@@ -188,7 +188,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
               </th>
               <th
                 className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                style={{ width: '8%' }}
+                style={{ width: '6%' }}
                 onClick={() => handleSort('gender')}
               >
                 <div className="flex items-center space-x-1">
@@ -198,7 +198,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
               </th>
               <th
                 className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                style={{ width: '10%' }}
+                style={{ width: '8%' }}
                 onClick={() => handleSort('eventType')}
               >
                 <div className="flex items-center space-x-1">
@@ -208,7 +208,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
               </th>
               <th 
                 className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                style={{ width: '10%' }}
+                style={{ width: '8%' }}
               >
                 <div className="flex items-center space-x-1">
                   <span>Website</span>
