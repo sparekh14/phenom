@@ -4,6 +4,7 @@ import { format, parseISO } from 'date-fns';
 import { downloadMultipleEventsICS } from '../utils/export';
 import { getColorBySport } from '../utils/colors';
 import { isValidExternalWebsite, getWebsiteDisplayText, getWebsiteDisplayClass } from '../utils/websiteValidation';
+import { getLocationDisplay, getAgeDisplay, getGenderDisplay, getEventTypeDisplay, getDisplayClass } from '../utils/displayHelpers';
 
 const ListView = ({ events, timezone, onEventClick }) => {
   const [sortField, setSortField] = useState('startDateTime');
@@ -238,7 +239,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
                 </td>
                 {/* Location */}
                 <td className="px-6 py-4">
-                  <div className="text-sm text-gray-900">{event.location}</div>
+                  <div className={getDisplayClass(event.location)}>{getLocationDisplay(event.location)}</div>
                 </td>
                 {/* Sport */}
                 <td className="px-6 py-4 whitespace-nowrap">
@@ -246,15 +247,15 @@ const ListView = ({ events, timezone, onEventClick }) => {
                 </td>
                 {/* Age */}
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{event.age}</div>
+                  <div className={getDisplayClass(event.age)}>{getAgeDisplay(event.age)}</div>
                 </td>
                 {/* Gender */}
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{event.gender}</div>
+                  <div className={getDisplayClass(event.gender)}>{getGenderDisplay(event.gender)}</div>
                 </td>
                 {/* Event Type */}
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-500 italic">{event.event_type || 'Not specified'}</div>
+                  <div className={getDisplayClass(event.event_type)}>{getEventTypeDisplay(event.event_type)}</div>
                 </td>
                 {/* Website */}
                 <td className="px-6 py-4 whitespace-nowrap">
