@@ -103,7 +103,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden w-full">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden">
       {/* Header with Export Button */}
       <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
         <div>
@@ -123,12 +123,11 @@ const ListView = ({ events, timezone, onEventClick }) => {
 
       {/* Table */}
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200" style={{ minWidth: '1200px' }}>
+        <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
               <th
-                className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                style={{ width: '12%' }}
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSort('startDateTime')}
               >
                 <div className="flex items-center space-x-1">
@@ -137,8 +136,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
                 </div>
               </th>
               <th
-                className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                style={{ width: '12%' }}
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSort('startDateTime')}
               >
                 <div className="flex items-center space-x-1">
@@ -147,8 +145,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
                 </div>
               </th>
               <th
-                className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                style={{ width: '24%' }}
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSort('name')}
               >
                 <div className="flex items-center space-x-1">
@@ -157,8 +154,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
                 </div>
               </th>
               <th
-                className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                style={{ width: '14%' }}
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSort('location')}
               >
                 <div className="flex items-center space-x-1">
@@ -167,8 +163,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
                 </div>
               </th>
               <th
-                className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                style={{ width: '8%' }}
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSort('sport')}
               >
                 <div className="flex items-center space-x-1">
@@ -177,8 +172,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
                 </div>
               </th>
               <th
-                className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                style={{ width: '6%' }}
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSort('age')}
               >
                 <div className="flex items-center space-x-1">
@@ -187,8 +181,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
                 </div>
               </th>
               <th
-                className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                style={{ width: '6%' }}
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSort('gender')}
               >
                 <div className="flex items-center space-x-1">
@@ -197,8 +190,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
                 </div>
               </th>
               <th
-                className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                style={{ width: '8%' }}
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSort('eventType')}
               >
                 <div className="flex items-center space-x-1">
@@ -206,10 +198,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
                   {getSortIcon('eventType')}
                 </div>
               </th>
-              <th 
-                className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                style={{ width: '8%' }}
-              >
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 <div className="flex items-center space-x-1">
                   <span>Website</span>
                 </div>
@@ -224,7 +213,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
                 className={`hover:bg-gray-50 cursor-pointer ${getColorBySport(event.sport)}`}
               >
                 {/* Start Date/Time */}
-                <td className="px-4 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-900">
                     {format(parseISO(event.start_date), 'MMM d, yyyy')}
                   </div>
@@ -233,7 +222,7 @@ const ListView = ({ events, timezone, onEventClick }) => {
                   </div>
                 </td>
                 {/* End Date/Time (same as start for now) */}
-                <td className="px-4 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-900">
                     {format(parseISO(event.end_date), 'MMM d, yyyy')}
                   </div>
@@ -242,34 +231,34 @@ const ListView = ({ events, timezone, onEventClick }) => {
                   </div>
                 </td>
                 {/* Event Name */}
-                <td className="px-4 py-4">
+                <td className="px-6 py-4">
                   <div className="flex items-center">
                     <span className="text-lg mr-3">{getSportIcon(event.sport)}</span>
                     <div className="text-sm font-medium text-gray-900">{event.name}</div>
                   </div>
                 </td>
                 {/* Location */}
-                <td className="px-4 py-4">
+                <td className="px-6 py-4">
                   <div className={getDisplayClass(event.location)}>{getLocationDisplay(event.location)}</div>
                 </td>
                 {/* Sport */}
-                <td className="px-4 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-900">{event.sport}</div>
                 </td>
                 {/* Age */}
-                <td className="px-4 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 whitespace-nowrap">
                   <div className={getDisplayClass(event.age)}>{getAgeDisplay(event.age)}</div>
                 </td>
                 {/* Gender */}
-                <td className="px-4 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 whitespace-nowrap">
                   <div className={getDisplayClass(event.gender)}>{getGenderDisplay(event.gender)}</div>
                 </td>
                 {/* Event Type */}
-                <td className="px-4 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 whitespace-nowrap">
                   <div className={getDisplayClass(event.event_type)}>{getEventTypeDisplay(event.event_type)}</div>
                 </td>
                 {/* Website */}
-                <td className="px-4 py-4 whitespace-nowrap">
+                <td className="px-6 py-4 whitespace-nowrap">
                   {isValidExternalWebsite(event.website) ? (
                     <a 
                       href={event.website} 
