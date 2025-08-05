@@ -214,7 +214,7 @@ function AppContent() {
         events={events}
       />
       
-      <main className="container mx-auto px-4 py-6">
+      <main className="mx-auto px-4 py-6">
         <CalendarNav
           currentDate={currentDate}
           setCurrentDate={setCurrentDate}
