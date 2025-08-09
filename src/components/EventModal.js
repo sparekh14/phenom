@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { formatDateDisplay } from '../utils/timezone';
-import { generateGoogleCalendarUrl, downloadICSFile } from '../utils/export';
+import { formatEventDateDisplay } from '../utils/timezone';
 import { isValidExternalWebsite, getWebsiteDisplayText } from '../utils/websiteValidation';
 import { getLocationDisplay, getAgeDisplay, getGenderDisplay, getEventTypeDisplay } from '../utils/displayHelpers';
 
@@ -24,8 +23,6 @@ const EventModal = ({ event, timezone, onClose }) => {
     }
   };
 
-
-
   const getSportIcon = (sport) => {
     switch (sport.toLowerCase()) {
       case 'soccer': return '⚽';
@@ -40,17 +37,6 @@ const EventModal = ({ event, timezone, onClose }) => {
       default: return '🏃';
     }
   };
-
-  const handleGoogleCalendar = () => {
-    const url = generateGoogleCalendarUrl(event, timezone);
-    window.open(url, '_blank');
-  };
-
-  const handleDownloadICS = () => {
-    downloadICSFile(event, timezone);
-  };
-
-
 
   return (
     <div
@@ -79,26 +65,15 @@ const EventModal = ({ event, timezone, onClose }) => {
         </div>
 
         {/* Body */}
-        <div className="px-6 py-4 space-y-4">
-          {/* Start Date/Time */}
+        <div className="px-6 py-6 space-y-4">
+          {/* Date */}
           <div className="flex items-center text-sm">
             <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <span className="text-gray-600 w-20">Start:</span>
+            <span className="text-gray-600 w-20">Date:</span>
             <span className="text-gray-900">
-              {formatDateDisplay(event.start_date, 'America/New_York')} - All Day Event
-            </span>
-          </div>
-
-          {/* End Date/Time (same as start for now) */}
-          <div className="flex items-center text-sm">
-            <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span className="text-gray-600 w-20">End:</span>
-            <span className="text-gray-900">
-              {formatDateDisplay(event.end_date, 'America/New_York')} - All Day Event
+              {formatEventDateDisplay(event.start_date, event.end_date, 'America/New_York')}
             </span>
           </div>
 
@@ -115,7 +90,7 @@ const EventModal = ({ event, timezone, onClose }) => {
           {/* Sport */}
           <div className="flex items-center text-sm">
             <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
             </svg>
             <span className="text-gray-600 w-20">Sport:</span>
             <span className="text-gray-900">{event.sport}</span>
@@ -142,7 +117,7 @@ const EventModal = ({ event, timezone, onClose }) => {
           {/* Event Type */}
           <div className="flex items-center text-sm">
             <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
             <span className="text-gray-600 w-20">Type:</span>
             <span className="text-gray-500 italic">{getEventTypeDisplay(event.event_type)}</span>
@@ -151,7 +126,7 @@ const EventModal = ({ event, timezone, onClose }) => {
           {/* Website */}
           <div className="flex items-center text-sm">
             <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
             <span className="text-gray-600 w-20">Website:</span>
             {isValidExternalWebsite(event.website) ? (
@@ -167,36 +142,6 @@ const EventModal = ({ event, timezone, onClose }) => {
               <span className="text-gray-500 italic">{getWebsiteDisplayText(event.website)}</span>
             )}
           </div>
-        </div>
-
-        {/* Footer */}
-        <div className="px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
-          <div className="flex flex-wrap gap-2">
-            <button
-              onClick={handleGoogleCalendar}
-              className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              Add to Google Calendar
-            </button>
-            <button
-              onClick={handleDownloadICS}
-              className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              Download .ics
-            </button>
-          </div>
-          <button
-            onClick={onClose}
-            className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          >
-            Close
-          </button>
         </div>
       </div>
     </div>

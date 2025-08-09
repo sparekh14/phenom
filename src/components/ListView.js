@@ -3,8 +3,8 @@ import { format, parseISO } from 'date-fns';
 
 import { downloadMultipleEventsICS } from '../utils/export';
 import { getColorBySport } from '../utils/colors';
-import { isValidExternalWebsite, getWebsiteDisplayText, getWebsiteDisplayClass } from '../utils/websiteValidation';
 import { getLocationDisplay, getAgeDisplay, getGenderDisplay, getEventTypeDisplay, getDisplayClass } from '../utils/displayHelpers';
+import { formatEventDateDisplay } from '../utils/timezone';
 
 const ListView = ({ events, timezone, onEventClick }) => {
   const [sortField, setSortField] = useState('startDateTime');
@@ -36,8 +36,8 @@ const ListView = ({ events, timezone, onEventClick }) => {
         bValue = b.sport.toLowerCase();
         break;
       case 'location':
-        aValue = a.location.toLowerCase();
-        bValue = b.location.toLowerCase();
+        aValue = (a.location || '').toLowerCase();
+        bValue = (b.location || '').toLowerCase();
         break;
       case 'age':
         aValue = a.age.toLowerCase();
@@ -127,20 +127,22 @@ const ListView = ({ events, timezone, onEventClick }) => {
           <thead className="bg-gray-50">
             <tr>
               <th
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 whitespace-nowrap"
                 onClick={() => handleSort('startDateTime')}
+                style={{ minWidth: '120px' }}
               >
                 <div className="flex items-center space-x-1">
-                  <span>Start Date/Time</span>
+                  <span>Start Date</span>
                   {getSortIcon('startDateTime')}
                 </div>
               </th>
               <th
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 whitespace-nowrap"
                 onClick={() => handleSort('startDateTime')}
+                style={{ minWidth: '120px' }}
               >
                 <div className="flex items-center space-x-1">
-                  <span>End Date/Time</span>
+                  <span>End Date</span>
                   {getSortIcon('startDateTime')}
                 </div>
               </th>
@@ -201,14 +203,6 @@ const ListView = ({ events, timezone, onEventClick }) => {
                   {getSortIcon('eventType')}
                 </div>
               </th>
-              <th 
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                style={{ width: '80px' }}
-              >
-                <div className="flex items-center space-x-1">
-                  <span>Website</span>
-                </div>
-              </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -223,17 +217,11 @@ const ListView = ({ events, timezone, onEventClick }) => {
                   <div className="text-sm text-gray-900">
                     {format(parseISO(event.start_date), 'MMM d, yyyy')}
                   </div>
-                  <div className="text-sm text-gray-500">
-                    All Day Event
-                  </div>
                 </td>
                 {/* End Date/Time (same as start for now) */}
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-900">
-                    {format(parseISO(event.end_date), 'MMM d, yyyy')}
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    All Day Event
+                    {event.end_date ? format(parseISO(event.end_date), 'MMM d, yyyy') : '—'}
                   </div>
                 </td>
                 {/* Event Name */}
@@ -262,24 +250,6 @@ const ListView = ({ events, timezone, onEventClick }) => {
                 {/* Event Type */}
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className={getDisplayClass(event.event_type)}>{getEventTypeDisplay(event.event_type)}</div>
-                </td>
-                {/* Website */}
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {isValidExternalWebsite(event.website) ? (
-                    <a 
-                      href={event.website} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className={getWebsiteDisplayClass(event.website)}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      {getWebsiteDisplayText(event.website)}
-                    </a>
-                  ) : (
-                    <div className={getWebsiteDisplayClass(event.website)}>
-                      {getWebsiteDisplayText(event.website)}
-                    </div>
-                  )}
                 </td>
               </tr>
             ))}

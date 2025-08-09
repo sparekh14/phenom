@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameDay, parseISO } from 'date-fns';
 import EventTile from './EventTile';
 import DayCell from './DayCell';
+import { getColorBySport } from '../utils/colors';
+import { getLocationDisplay } from '../utils/displayHelpers';
 
 import useMediaQuery from '../hooks/useMediaQuery';
 
@@ -137,10 +139,7 @@ const CalendarGrid = ({ view, events, currentDate, timezone, onEventClick, onDay
 
     return (
       <div className="bg-white rounded-lg shadow-md">
-        <div className={`text-center py-2 px-4 border-b ${isToday ? 'bg-blue-50' : ''}`}>
-          <h3 className={`text-lg font-semibold ${isToday ? 'text-blue-600' : 'text-gray-900'}`}>
-            {format(currentDate, 'EEEE, MMMM d, yyyy')}
-          </h3>
+        <div className={`text-center py-3 px-4 border-b ${isToday ? 'bg-blue-50' : ''}`}>
           <p className="text-sm text-gray-600">{dayEvents.length} events</p>
         </div>
         <div className="max-h-[70vh] overflow-y-auto">
@@ -205,11 +204,14 @@ const CalendarGrid = ({ view, events, currentDate, timezone, onEventClick, onDay
                 <div className="flex-1">
                   <h4 className="font-medium text-gray-900">{event.name}</h4>
                   <p className="text-sm text-gray-600 mt-1">
-                    {format(parseISO(event.start_date), 'MMM d, yyyy')} • All Day Event
+                    {event.end_date && event.end_date !== event.start_date 
+                      ? `${format(parseISO(event.start_date), 'MMM d, yyyy')} – ${format(parseISO(event.end_date), 'MMM d, yyyy')}`
+                      : format(parseISO(event.start_date), 'MMM d, yyyy')
+                    }
                   </p>
-                  <p className="text-sm text-gray-500">{event.location}</p>
+                  <p className="text-sm text-gray-500">{getLocationDisplay(event.location)}</p>
                 </div>
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getColorBySport(event.sport)}`}>
                   {event.sport}
                 </span>
               </div>

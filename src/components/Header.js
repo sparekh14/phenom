@@ -36,8 +36,8 @@ const Header = ({
         {/* Top row: Title and View selector */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
           <div className="mb-4 sm:mb-0">
-            <h1 className="text-2xl font-bold text-gray-900">Youth Sports Events</h1>
-            <p className="text-sm text-gray-600">Calendar & Event Management</p>
+            <h1 className="text-2xl font-bold text-gray-900">Phenom</h1>
+            <p className="text-sm text-gray-600">Your Hub for Youth Sports</p>
           </div>
           
           {/* View Toggle */}

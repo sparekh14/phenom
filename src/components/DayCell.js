@@ -5,6 +5,12 @@ import EventTile from './EventTile';
 
 const DayCell = ({ day, monthStart, events, timezone, onEventClick, onDayClick }) => {
   const dayEvents = events.filter(event => isSameDay(parseISO(event.start_date), day));
+  
+  // Sort events alphabetically by title (case-insensitive) if more than 2 events
+  const sortedDayEvents = dayEvents.length > 2 
+    ? [...dayEvents].sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
+    : dayEvents;
+  
   const isCurrentMonth = isSameMonth(day, monthStart);
   const isToday = isSameDay(day, new Date());
   const dateFormat = "d";
@@ -22,7 +28,7 @@ const DayCell = ({ day, monthStart, events, timezone, onEventClick, onDayClick }
         {format(day, dateFormat)}
       </div>
       <div className="space-y-1">
-        {dayEvents.slice(0, 2).map(event => (
+        {sortedDayEvents.slice(0, 2).map(event => (
           <EventTile
             key={event.id}
             event={event}
@@ -34,7 +40,7 @@ const DayCell = ({ day, monthStart, events, timezone, onEventClick, onDayClick }
             compact={true}
           />
         ))}
-        {dayEvents.length > 2 && (
+        {sortedDayEvents.length > 2 && (
           <div
             className="text-xs text-blue-500 hover:underline cursor-pointer"
             onClick={(e) => {
@@ -42,7 +48,7 @@ const DayCell = ({ day, monthStart, events, timezone, onEventClick, onDayClick }
               onDayClick(day);
             }}
           >
-            +{dayEvents.length - 2} more
+            +{sortedDayEvents.length - 2} more
           </div>
         )}
       </div>

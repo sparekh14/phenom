@@ -32,51 +32,92 @@ const CalendarNav = ({ currentDate, setCurrentDate, currentView, goToToday, navi
     }
   };
 
+  // Check if navigation arrows should be shown (not in List View)
+  const showNavigation = currentView !== 'list';
+
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
-      <div className="flex items-center gap-4">
-        <h2 className="text-xl font-semibold text-gray-900">
-          {formatTitle()}
-        </h2>
-        
-        <button
-          onClick={goToToday}
-          className="px-3 py-1 text-sm bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200 transition-colors"
-        >
-          Today
-        </button>
-      </div>
+    <div className="mb-6">
+      {/* Desktop and tablet layout */}
+      {showNavigation ? (
+        /* 3 column grid with navigation arrows */
+        <div className="hidden sm:grid sm:grid-cols-3 sm:items-center sm:gap-4">
+          {/* Left column - Title only */}
+          <div className="flex items-center">
+            <h2 className="text-xl font-semibold text-gray-900">
+              {formatTitle()}
+            </h2>
+          </div>
 
-      <div className="flex items-center gap-2">
-        <button
-          onClick={() => navigateDate(-1)}
-          className="p-2 rounded-md hover:bg-gray-100 transition-colors"
-          title={getNavigationLabel(-1)}
-        >
-          <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-        
-        <button
-          onClick={() => navigateDate(1)}
-          className="p-2 rounded-md hover:bg-gray-100 transition-colors"
-          title={getNavigationLabel(1)}
-        >
-          <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-      </div>
+          {/* Center column - Navigation arrows (always centered) */}
+          <div className="flex items-center justify-center gap-2">
+            <button
+              onClick={() => navigateDate(-1)}
+              className="p-2 rounded-md hover:bg-gray-100 transition-colors"
+              title={getNavigationLabel(-1)}
+            >
+              <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            
+            <button
+              onClick={() => navigateDate(1)}
+              className="p-2 rounded-md hover:bg-gray-100 transition-colors"
+              title={getNavigationLabel(1)}
+            >
+              <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
 
-      {/* Keyboard shortcuts hint */}
-      <div className="hidden lg:block text-xs text-gray-500">
-        <div className="flex items-center gap-4">
-          <span>←/→ Navigate</span>
-          <span>T Today</span>
-          <span>F Search</span>
-          <span>Esc Close</span>
+          {/* Right column - Empty (for balance) */}
+          <div></div>
         </div>
+      ) : (
+        /* Single column layout for List View (no navigation arrows) */
+        <div className="hidden sm:block">
+          <div className="flex items-center">
+            <h2 className="text-xl font-semibold text-gray-900">
+              {formatTitle()}
+            </h2>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile layout - stacked vertically */}
+      <div className="sm:hidden space-y-4">
+        {/* Title only */}
+        <div className="flex items-center justify-center">
+          <h2 className="text-xl font-semibold text-gray-900">
+            {formatTitle()}
+          </h2>
+        </div>
+
+        {/* Navigation arrows - centered on mobile (only if not List View) */}
+        {showNavigation && (
+          <div className="flex items-center justify-center gap-2">
+            <button
+              onClick={() => navigateDate(-1)}
+              className="p-2 rounded-md hover:bg-gray-100 transition-colors"
+              title={getNavigationLabel(-1)}
+            >
+              <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            
+            <button
+              onClick={() => navigateDate(1)}
+              className="p-2 rounded-md hover:bg-gray-100 transition-colors"
+              title={getNavigationLabel(1)}
+            >
+              <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

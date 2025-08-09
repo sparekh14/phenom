@@ -80,6 +80,9 @@ function AppContent() {
 
   // Apply filters and search
   const applyFilters = useCallback(() => {
+    // Helper function for safe lowercase comparison
+    const lc = (s) => (s ?? "").toLowerCase();
+    
     let filtered = events.filter(event => {
       // Ensure all relevant event properties are strings
       const eventName = (event.name || '').toString();
@@ -90,8 +93,8 @@ function AppContent() {
         const query = searchQuery.toLowerCase();
         if (
           !eventName.toLowerCase().includes(query) &&
-          !eventLocation.toLowerCase().includes(query) &&
-          !(event.sport || '').toLowerCase().includes(query)
+          !lc(event.location).includes(query) &&
+          !lc(event.sport).includes(query)
         ) {
           return false;
         }
@@ -99,7 +102,11 @@ function AppContent() {
 
       // Individual filters
       if (filters.sport && event.sport !== filters.sport) return false;
-      if (filters.location && !eventLocation.toLowerCase().includes(filters.location.toLowerCase())) return false;
+      
+      // Location filter - null-safe and case-insensitive
+      const activeLoc = lc(filters.location);
+      if (activeLoc && !lc(event.location).includes(activeLoc)) return false;
+      
       if (filters.age && event.age !== filters.age) return false;
       if (filters.gender && event.gender !== filters.gender) return false;
       if (filters.eventType && event.event_type !== filters.eventType) return false;

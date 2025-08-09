@@ -8,9 +8,11 @@ const FiltersBar = ({ filters, setFilters, events }) => {
   const eventTypes = [...new Set(events.map(e => e.event_type))].filter(Boolean).sort();
 
   const updateFilter = (key, value) => {
+    // Ensure value is a string and handle null/undefined
+    const safeValue = value ?? "";
     setFilters(prev => ({
       ...prev,
-      [key]: value
+      [key]: safeValue
     }));
   };
 

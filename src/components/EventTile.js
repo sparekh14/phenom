@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { getColorBySport } from '../utils/colors';
+import { formatEventDateDisplay } from '../utils/timezone';
+import { getLocationDisplay } from '../utils/displayHelpers';
 
 const EventTile = ({ event, timezone, onClick, compact = false, showTime = false, detailed = false }) => {
-
 
   const getSportIcon = (sport) => {
     switch (sport.toLowerCase()) {
@@ -39,7 +40,7 @@ const EventTile = ({ event, timezone, onClick, compact = false, showTime = false
         <div className="font-medium truncate">{event.name}</div>
         {showTime && (
           <div className="text-xs opacity-75">
-            {"All Day"}
+            {formatEventDateDisplay(event.start_date, event.end_date, timezone)}
           </div>
         )}
       </div>
@@ -62,13 +63,10 @@ const EventTile = ({ event, timezone, onClick, compact = false, showTime = false
             </div>
           </div>
 
-          {/* Time */}
+          {/* Date */}
           <div className="col-span-2 text-sm text-gray-600">
             <div className="font-medium">
-              {"All Day Event"}
-            </div>
-            <div className="text-xs text-gray-500">
-              {"All Day Event"} {/* End time - same for now */}
+              {formatEventDateDisplay(event.start_date, event.end_date, timezone)}
             </div>
           </div>
 
@@ -79,7 +77,7 @@ const EventTile = ({ event, timezone, onClick, compact = false, showTime = false
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              <span className="truncate">{event.location}</span>
+              <span className="truncate">{getLocationDisplay(event.location)}</span>
             </div>
           </div>
 
@@ -116,10 +114,10 @@ const EventTile = ({ event, timezone, onClick, compact = false, showTime = false
           <h4 className="font-medium text-sm text-gray-900 truncate">{event.name}</h4>
           {showTime && (
             <p className="text-xs text-gray-600">
-              {"All Day"}
+              {formatEventDateDisplay(event.start_date, event.end_date, timezone)}
             </p>
           )}
-          <p className="text-xs text-gray-500 truncate">{event.location}</p>
+          <p className="text-xs text-gray-500 truncate">{getLocationDisplay(event.location)}</p>
         </div>
 
       </div>

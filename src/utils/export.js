@@ -3,10 +3,10 @@ import { createEvent } from 'ics';
 // Generate Google Calendar URL
 export const generateGoogleCalendarUrl = (event, userTimezone) => {
   try {
-    // Format dates for Google Calendar all-day events (YYYYMMDD format)
+    // Format dates for Google Calendar (YYYYMMDD format)
     const startDate = event.start_date.replace(/-/g, '');
-    const endDateObj = new Date(event.end_date);
-    endDateObj.setDate(endDateObj.getDate() + 1); // Add 1 day for all-day events
+    const endDateObj = new Date(event.end_date || event.start_date);
+    endDateObj.setDate(endDateObj.getDate() + 1); // Add 1 day for calendar events
     const endDate = endDateObj.toISOString().substr(0, 10).replace(/-/g, '');
     
     const params = new URLSearchParams({
@@ -29,8 +29,8 @@ export const generateGoogleCalendarUrl = (event, userTimezone) => {
 export const generateICSContent = (event, userTimezone) => {
   try {
     const startDate = new Date(event.start_date);
-    const endDate = new Date(event.end_date);
-    endDate.setDate(endDate.getDate() + 1); // Add 1 day for all-day events
+    const endDate = new Date(event.end_date || event.start_date);
+    endDate.setDate(endDate.getDate() + 1); // Add 1 day for calendar events
     
     const icsEvent = {
       title: event.name,
