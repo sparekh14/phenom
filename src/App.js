@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import Header from './components/Header';
-import CalendarNav from './components/CalendarNav';
+import CalendarToolbar from './components/CalendarToolbar';
 import CalendarGrid from './components/CalendarGrid';
 import ListView from './components/ListView';
 import EventModal from './components/EventModal';
+import JobBoard from './components/jobs/JobBoard';
 import { getUserTimezone } from './utils/timezone';
 import { fetchEvents, subscribeToEvents } from './lib/supabase';
 import './index.css';
@@ -86,7 +87,6 @@ function AppContent() {
     let filtered = events.filter(event => {
       // Ensure all relevant event properties are strings
       const eventName = (event.name || '').toString();
-      const eventLocation = (event.location || '').toString();
 
       // Search filter
       if (searchQuery) {
@@ -211,24 +211,26 @@ function AppContent() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header
-        currentView={currentView}
-        setCurrentView={setCurrentView}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        filters={filters}
-        setFilters={setFilters}
-        events={events}
-      />
+      <Header />
       
-      <main className="mx-auto px-4 py-6">
-        <CalendarNav
+      {/* Calendar Toolbar - Only show on calendar pages */}
+      {['/month', '/week', '/day', '/list'].includes(location.pathname) && (
+        <CalendarToolbar
+          currentView={currentView}
+          setCurrentView={setCurrentView}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          filters={filters}
+          setFilters={setFilters}
+          events={events}
           currentDate={currentDate}
           setCurrentDate={setCurrentDate}
-          currentView={currentView}
           goToToday={goToToday}
           navigateDate={navigateDate}
         />
+      )}
+      
+      <main className="mx-auto px-4 py-6">
         
         {loading ? (
           <div className="flex items-center justify-center py-12">
@@ -305,6 +307,10 @@ function AppContent() {
                 onEventClick={openEventModal}
               />
             } 
+          />
+          <Route 
+            path="/jobs/*" 
+            element={<JobBoard />} 
           />
         </Routes>
         )}

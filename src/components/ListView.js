@@ -4,7 +4,7 @@ import { format, parseISO } from 'date-fns';
 import { downloadMultipleEventsICS } from '../utils/export';
 import { getColorBySport } from '../utils/colors';
 import { getLocationDisplay, getAgeDisplay, getGenderDisplay, getEventTypeDisplay, getDisplayClass } from '../utils/displayHelpers';
-import { formatEventDateDisplay } from '../utils/timezone';
+// formatEventDateDisplay import removed as it's not used in this component
 
 const ListView = ({ events, timezone, onEventClick }) => {
   const [sortField, setSortField] = useState('startDateTime');

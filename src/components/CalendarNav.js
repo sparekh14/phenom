@@ -36,89 +36,43 @@ const CalendarNav = ({ currentDate, setCurrentDate, currentView, goToToday, navi
   const showNavigation = currentView !== 'list';
 
   return (
-    <div className="mb-6">
-      {/* Desktop and tablet layout */}
+    <div>
+      {/* Simplified layout for toolbar integration */}
       {showNavigation ? (
-        /* 3 column grid with navigation arrows */
-        <div className="hidden sm:grid sm:grid-cols-3 sm:items-center sm:gap-4">
-          {/* Left column - Title only */}
-          <div className="flex items-center">
-            <h2 className="text-xl font-semibold text-gray-900">
-              {formatTitle()}
-            </h2>
-          </div>
-
-          {/* Center column - Navigation arrows (always centered) */}
-          <div className="flex items-center justify-center gap-2">
-            <button
-              onClick={() => navigateDate(-1)}
-              className="p-2 rounded-md hover:bg-gray-100 transition-colors"
-              title={getNavigationLabel(-1)}
-            >
-              <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            
-            <button
-              onClick={() => navigateDate(1)}
-              className="p-2 rounded-md hover:bg-gray-100 transition-colors"
-              title={getNavigationLabel(1)}
-            >
-              <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-
-          {/* Right column - Empty (for balance) */}
-          <div></div>
+        /* Navigation with arrows and title */
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => navigateDate(-1)}
+            className="p-2 rounded-md hover:bg-gray-100 transition-colors h-9 w-9 flex items-center justify-center"
+            title={getNavigationLabel(-1)}
+          >
+            <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          
+          <h2 className="text-lg font-semibold text-gray-900 whitespace-nowrap">
+            {formatTitle()}
+          </h2>
+          
+          <button
+            onClick={() => navigateDate(1)}
+            className="p-2 rounded-md hover:bg-gray-100 transition-colors h-9 w-9 flex items-center justify-center"
+            title={getNavigationLabel(1)}
+          >
+            <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
         </div>
       ) : (
-        /* Single column layout for List View (no navigation arrows) */
-        <div className="hidden sm:block">
-          <div className="flex items-center">
-            <h2 className="text-xl font-semibold text-gray-900">
-              {formatTitle()}
-            </h2>
-          </div>
-        </div>
-      )}
-
-      {/* Mobile layout - stacked vertically */}
-      <div className="sm:hidden space-y-4">
-        {/* Title only */}
+        /* Title only for List View */
         <div className="flex items-center justify-center">
-          <h2 className="text-xl font-semibold text-gray-900">
+          <h2 className="text-lg font-semibold text-gray-900">
             {formatTitle()}
           </h2>
         </div>
-
-        {/* Navigation arrows - centered on mobile (only if not List View) */}
-        {showNavigation && (
-          <div className="flex items-center justify-center gap-2">
-            <button
-              onClick={() => navigateDate(-1)}
-              className="p-2 rounded-md hover:bg-gray-100 transition-colors"
-              title={getNavigationLabel(-1)}
-            >
-              <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            
-            <button
-              onClick={() => navigateDate(1)}
-              className="p-2 rounded-md hover:bg-gray-100 transition-colors"
-              title={getNavigationLabel(1)}
-            >
-              <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-        )}
-      </div>
+      )}
     </div>
   );
 };

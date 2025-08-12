@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { formatEventDateDisplay } from '../utils/timezone';
 import { isValidExternalWebsite, getWebsiteDisplayText } from '../utils/websiteValidation';
 import { getLocationDisplay, getAgeDisplay, getGenderDisplay, getEventTypeDisplay } from '../utils/displayHelpers';
+import CreatorsAttending from './CreatorsAttending';
 
 const EventModal = ({ event, timezone, onClose }) => {
   // Handle escape key
@@ -142,6 +143,9 @@ const EventModal = ({ event, timezone, onClose }) => {
               <span className="text-gray-500 italic">{getWebsiteDisplayText(event.website)}</span>
             )}
           </div>
+
+          {/* Creators Attending Section */}
+          <CreatorsAttending eventId={event.id} />
         </div>
       </div>
     </div>
